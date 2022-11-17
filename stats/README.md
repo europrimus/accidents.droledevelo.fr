@@ -43,3 +43,7 @@ Data could be parsed from data.gouv.fr with this command (run in virtual environ
 ```
 ./manage.py updateData data.gouv.fr
 ```
+
+## tech
+ - Django
+ - [Django Ninja](https://django-ninja.rest-framework.com/)
