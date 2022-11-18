@@ -36,6 +36,7 @@ class DataGouvFr(CommonAbstract) :
         jsonData = json.JSONDecoder().decode(data)["data"]
         for link in jsonData:
             try:
+                # TODO : replace by postgreSQL request : INSERT ON CONFLICT UPDATE
                 urls = URL.objects.filter(uid=link['id'])
                 if len(urls) == 0 :
                     # if the entry exist : using it
