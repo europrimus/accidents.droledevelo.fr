@@ -47,7 +47,7 @@ class DataGouvFr(CommonAbstract) :
                 # update or set value
                 url.title = link['title']
                 url.description = link['description']
-                url.url = link['latest'],
+                url.url = link['latest']
                 url.checksum_type = None if link['checksum'] is None else link['checksum']['type']
                 url.checksum_value = None if link['checksum'] is None else link['checksum']['value']
                 url.filesize = link['filesize']
