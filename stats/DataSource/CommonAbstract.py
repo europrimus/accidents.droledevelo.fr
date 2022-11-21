@@ -16,7 +16,6 @@ class CommonAbstract(ABC):
 
     def _set_url(self,url):
         urlObj = urlparse(url)
-        # print(f"url : {urlObj}")
         if urlObj.scheme == None or urlObj.hostname == None :
             raise ValueError(f"not valid url : {url}")
         self._url = urlObj
