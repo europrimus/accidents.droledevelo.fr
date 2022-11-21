@@ -30,19 +30,27 @@ class Command(BaseCommand):
         if source not in set(self._dataSources.keys()):
             self.stderr.write("Unknow data source")
             return
-        moduleName = self._dataSources[source]
-        # from DataSource.DataGouvFr import DataGouvFr
-        try :
-            module = import_module(f"DataSource.{moduleName}")
-            DataSource = getattr(module, moduleName)
-            dataSource = DataSource()
-        except :
-            self.stderr.write("Error when importing data source")
-            return
+        dataSource = self.getDataSource(source)
+        print(f"dataSource : {dataSource}")
+        self.updateUrlList(dataSource)
+
+    def updateUrlList(self,dataSource):
+        if None == dataSource:
+            raise ValueError("Need a data source object")
         self.stdout.write("update data")
         data, mimeType = dataSource.download()
         insertedLine = dataSource.parse(data,mimeType)
         self.stdout.write(f"inserted line: {insertedLine}")
+
+    def getDataSource(self,source):
+        moduleName = self._dataSources[source]
+        try :
+            module = import_module(f"DataSource.{moduleName}")
+            DataSource = getattr(module, moduleName)
+            return DataSource()
+        except Exception as e:
+            self.stderr.write("Error when importing data source")
+            raise e
 
 
     def sourcesList(self):
