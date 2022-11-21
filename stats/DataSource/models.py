@@ -54,3 +54,19 @@ class URL(models.Model):
     imported_at = models.DateTimeField(
         null=True
         )
+
+    def __str__(self):
+        return f"{self.uid} - {self.url}"
+
+    @staticmethod
+    def needUpdate():
+        # see : https://stackoverflow.com/questions/50600531/django-filter-on-date-difference-between-columns
+        # SELECT uid,url,checksum_type,checksum_value FROM "DataSource_url" WHERE imported_at IS NULL OR imported_at < last_modified_at ;
+        return URL.objects.raw(
+        """SELECT * FROM "DataSource_url"
+            WHERE (
+                imported_at IS NULL
+                OR imported_at < last_modified_at
+                )
+            AND mime_type = 'text/csv';
+            """)

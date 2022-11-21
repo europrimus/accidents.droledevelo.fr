@@ -2,6 +2,7 @@
 
 import sys
 from django.core.management.base import BaseCommand, CommandError
+from DataSource.models import URL
 from importlib import import_module
 
 class Command(BaseCommand):
@@ -33,6 +34,7 @@ class Command(BaseCommand):
         dataSource = self.getDataSource(source)
         print(f"dataSource : {dataSource}")
         self.updateUrlList(dataSource)
+        urlsToUpdate = URL.needUpdate()
 
     def updateUrlList(self,dataSource):
         if None == dataSource:
