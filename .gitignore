@@ -2,3 +2,4 @@ stats/.venv/**
 **/__pycache__/**
 .vscode/**
 **/.vscode/**
+/stats/download/**
